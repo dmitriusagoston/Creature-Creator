@@ -2,50 +2,50 @@
     "enviroments": {
         "forest" : {
             "temperature" : {
-                "max" : 1,
-                "min" : 0
+                "max" : 70,
+                "min" : 50
             },
             "weather" : {
-                "max" : 1,
+                "max" : 10,
                 "min" : 0
             },
-            "terrain" : ["feature", "feature", "feature"],
+            "terrain" : ["arborous", "soil", "shrubbery", "rocks", "rivers", "hills"],
             "flora" : {
-                "tier1" : ["food"],
-                "tier2" : ["food"],
-                "tier3" : ["food"]
+                "tier1" : ["berry", "fruit", "mushroom"],
+                "tier2" : ["leaf", "grass"],
+                "tier3" : ["root"]
             },
             "fauna" : {
                 "prey" : {
-                    "tier1" : ["food"],
-                    "tier2" : ["food"],
-                    "tier3" : ["food"]
+                    "tier1" : ["egg", "insect"],
+                    "tier2" : ["rodent", "bird", "reptile"],
+                    "tier3" : ["deer", "sheep", "hog"]
                 },
-                "predator" : ["enemy"]
+                "predator" : ["wolf, bear, snake, fox"]
             }
         },
         "ocean" : {
             "temperature" : {
-                "max" : 1,
-                "min" : 0
+                "max" : 60,
+                "min" : 30
             },
             "weather" : {
-                "max" : 1,
-                "min" : 0
+                "max" : 10,
+                "min" : 5
             },
-            "terrain" : ["feature", "feature", "feature"],
+            "terrain" : ["water", "rocks", "sand"],
             "flora" : {
-                "tier1" : ["food"],
-                "tier2" : ["food"],
-                "tier3" : ["food"]
+                "tier1" : ["algae"],
+                "tier2" : ["kelp"],
+                "tier3" : ["seaweed"]
             },
             "fauna" : {
                 "prey" : {
-                    "tier1" : ["food"],
-                    "tier2" : ["food"],
-                    "tier3" : ["food"]
+                    "tier1" : ["plankton"],
+                    "tier2" : ["fish"],
+                    "tier3" : ["big_fish"]
                 },
-                "predator" : ["enemy"]
+                "predator" : ["shark", "orca", "giant_octopus", "dolphin", "sealion"]
             }
         },
         "desert" : {

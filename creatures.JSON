@@ -1,0 +1,8 @@
+{
+    "predators" : {
+        "wolf" : {"features" : ["claws", "thick_hide", "fur", "fangs", "tail"], "weight" : 150}
+    },
+    "prey" : {
+
+    }
+}
