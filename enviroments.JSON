@@ -1,0 +1,31 @@
+{
+    "enviroments": {
+        "forest" : {
+            "temperature" : {
+                "max" : 1,
+                "min" : 0
+            },
+            "weather" : {
+                "max" : 1,
+                "min" : 0
+            },
+            "terrain" : ["feature", "feature", "feature"],
+            "flora" : {
+                "tier1" : ["food"],
+                "tier2" : ["food"],
+                "tier3" : ["food"]
+            },
+            "fauna" : {
+                "prey" : {
+                    "tier1" : ["food"],
+                    "tier2" : ["food"],
+                    "tier3" : ["food"]
+                },
+                "predator" : ["enemy"]
+            }
+        },
+        "ocean" : {},
+        "desert" : {},
+        "jungle" : {}
+    }
+}
