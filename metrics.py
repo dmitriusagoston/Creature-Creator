@@ -79,6 +79,14 @@ def metrics(creature, env, tree):
     temp -= overheat #/ creature.heat_resitance
 
     # Weather
+    cur_weather = None
+    # snow case
+    if env.weather > 5 and env.temp[1] <= 32:
+        cur_weather = "snow"
+    elif env.weather > 5 and env.temp[0] > 32:
+        cur_weather = "rain"
+    else:
+        cur_weather = "clear"
     weather = env.weather
 
     # Terrain
@@ -106,4 +114,16 @@ def metrics(creature, env, tree):
     caloric += len([feature for feature in creature.features if feature in caloric_features])
 
 
-    return {"complexity": complexity, }
+    return {"complexity": complexity,
+            "weight": weight,
+            "temp": temp,
+            "weather": weather,
+            "terrain": terrain,
+            "flora": flora,
+            "predator": predator,
+            "prey": prey,
+            "defense": defense,
+            "offense": offense,
+            "adaptation": adaptation,
+            "caloric": caloric
+            }
