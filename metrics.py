@@ -1,3 +1,5 @@
+import numpy as np
+
 def get_features_from_root(root, type):
     '''
     This function takes in a root node and a type and returns a list of features of that type
@@ -78,7 +80,7 @@ def metrics(creature, env, tree):
     temp -= underheat #/ creature.cold_resistance - ask gillian about this (bio major)
     temp -= overheat #/ creature.heat_resitance
 
-    # Weather
+    # Weather - potentially remove later
     cur_weather = None
     # snow case
     if env.weather > 5 and env.temp[1] <= 32:
@@ -87,20 +89,52 @@ def metrics(creature, env, tree):
         cur_weather = "rain"
     else:
         cur_weather = "clear"
-    weather = env.weather
+    weather = 0 
 
     # Terrain
-    terrain = env.terrain
+    for feature in creature.features:
+        terrain += sum(terrain in feature["terrain"] for terrain in env.terrain)
 
     # Flora
-    flora = env.flora
+    for feature in creature.features:
+        for i in range(1,4):
+            flora += i*sum(flora in feature["flora"]["tier"+str(i)] for flora in env.flora)
+        
+        # flora += sum(flora in feature["flora"]["tier1"] for flora in env.flora)
+        # flora += 2*sum(flora in feature["flora"]["tier2"] for flora in env.flora)
+        # flora += 3*sum(flora in feature["flora"]["tier3"] for flora in env.flora)
 
     # Predator
-    predator = env.predator
+    survivability = []
+    countered_features = [f for f in creature.features["predator"]]
+    for predator in env.predators:
+        cur_win = 0.0
+        cur_lose = 0.0
+        for feature in [f for f in predator.features if f in offensive_features]:
+            if feature in countered_features:
+                cur_win += 1.0
+            else:
+                cur_lose += 1.0
+        survivability.append(cur_win / (cur_win + cur_lose))
+    predator = sum(survivability) / len(survivability)
 
     # Prey
-    prey = env.prey
-
+    success = []
+    countered_features = [f for f in creature.features["prey"]]
+    for prey in env.prey:
+        cur_win = 0.0
+        cur_lose = 0.0
+        for feature in [f for f in prey.features if f in defensive_features]:
+            if feature in countered_features:
+                cur_win += 1.0
+            else:
+                cur_lose += 1.0
+        success.append(cur_win / (cur_win + cur_lose))
+    
+    max_prey = max(success)
+    avg_prey = np.mean(success)
+    std_prey = np.std(success)
+    
     # Defense
     defense += len([feature for feature in creature.features if feature in defensive_features])
 
@@ -121,7 +155,9 @@ def metrics(creature, env, tree):
             "terrain": terrain,
             "flora": flora,
             "predator": predator,
-            "prey": prey,
+            "max_prey": max_prey,
+            "avg_prey": avg_prey,
+            "std_prey": std_prey,
             "defense": defense,
             "offense": offense,
             "adaptation": adaptation,
