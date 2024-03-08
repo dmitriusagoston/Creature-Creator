@@ -21,7 +21,7 @@
                     "tier2" : ["rodent", "bird", "reptile"],
                     "tier3" : ["deer", "sheep", "hog"]
                 },
-                "predator" : ["wolf, bear, snake, fox"]
+                "predator" : ["wolf", "bear", "snake", "fox"]
             }
         },
         "ocean" : {
@@ -50,50 +50,50 @@
         },
         "desert" : {
             "temperature" : {
-                "max" : 1,
-                "min" : 0
+                "max" : 100,
+                "min" : 50
             },
             "weather" : {
                 "max" : 1,
                 "min" : 0
             },
-            "terrain" : ["feature", "feature", "feature"],
+            "terrain" : ["sand", "rocks", "cliffs"],
             "flora" : {
-                "tier1" : ["food"],
-                "tier2" : ["food"],
-                "tier3" : ["food"]
+                "tier1" : ["flower"],
+                "tier2" : ["cactus"],
+                "tier3" : ["grass"]
             },
             "fauna" : {
                 "prey" : {
-                    "tier1" : ["food"],
-                    "tier2" : ["food"],
-                    "tier3" : ["food"]
+                    "tier1" : ["egg", "insect", "lizard"],
+                    "tier2" : ["rodent", "bird"],
+                    "tier3" : ["cow"]
                 },
-                "predator" : ["enemy"]
+                "predator" : ["snake", "wolf", "hawk", "fox", "spider"]
             }
         },
         "jungle" : {
             "temperature" : {
-                "max" : 1,
-                "min" : 0
+                "max" : 90,
+                "min" : 60
             },
             "weather" : {
-                "max" : 1,
-                "min" : 0
+                "max" : 8,
+                "min" : 4
             },
-            "terrain" : ["feature", "feature", "feature"],
+            "terrain" : ["arborous", "rocks", "soil", "shrubbery", "vines"],
             "flora" : {
-                "tier1" : ["food"],
-                "tier2" : ["food"],
-                "tier3" : ["food"]
+                "tier1" : ["berry", "flower"],
+                "tier2" : ["leaf"],
+                "tier3" : ["high leaf"]
             },
             "fauna" : {
                 "prey" : {
-                    "tier1" : ["food"],
-                    "tier2" : ["food"],
-                    "tier3" : ["food"]
+                    "tier1" : ["egg", "insect"],
+                    "tier2" : ["rodent", "bird"],
+                    "tier3" : ["hog"]
                 },
-                "predator" : ["enemy"]
+                "predator" : ["panther", "tiger", "snake", "spider"]
             }
         }
     }

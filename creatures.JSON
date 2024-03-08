@@ -1,6 +1,18 @@
 {
     "predators" : {
-        "wolf" : {"features" : ["claws", "thick_hide", "fur", "fangs", "tail"], "weight" : 150}
+        "wolf" : {"features" : ["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150},
+        "panther":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":0},
+        "tiger":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":0},
+        "snake":{"features":["scale", "eye", "fang"], "weight":0},
+        "spider":{"features":["eye", "fang"], "weight":0},
+        "hawk":{"features":["wing", "claw", "beak", "ear", "eye"], "weight":0},
+        "fox":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":0},
+        "shark":{"features":["eye", "nose", "fang", "fin", "tail"], "weight":0},
+        "orca":{"features":["eye", "nose", "fang", "fin", "tail"], "weight":0},
+        "giant_octopus":{"features":["eye", "beak", "tentacle", "sucker"], "weight":0},
+        "dolphin":{"features":["eye", "nose", "fang", "fin", "tail"], "weight":0},
+        "sealion":{"features":["thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":0},
+        "bear":{"features":["claw", "fang", "thick_hide", "fur", "ear", "eye", "nose"], "weight":0}
     },
     "prey" : {
 
