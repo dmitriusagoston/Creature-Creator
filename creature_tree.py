@@ -1,10 +1,15 @@
 import json
 
 class Node:
-    def __init__(self, parent=None, name=None):
+    def __init__(self, parent=None, name=None, is_feature=False):
         self.parent = parent
         self.name = name
         self.children = []
+        self.conditions = []
+        self.is_feature = is_feature
+
+    def is_feature(self):
+        return self.is_feature
 
     def __repr__(self) -> str:
         return f'{self.name}'
@@ -22,10 +27,9 @@ class Node:
 
 
 def tree_build():
-    '''
     # json file data location
     features_filename = 'features.json'
-    biomes_filename = 'biomes.json'
+    biomes_filename = 'enviroments.json'
 
     # grab json data
     with open(features_filename) as f:
@@ -33,12 +37,11 @@ def tree_build():
 
     with open(biomes_filename) as f:
         biomes = json.load(f)
-    '''
 
     # start of tree
     root = Node(name="root")
     # sub categories for root node
-    feature_groupings = ["Defensive", "Offensive", "Adaptation", "Caloric"]
+    feature_groupings = ["defensive", "offensive", "adaptation", "caloric"]
     # feature function groupings
     ffg = ["remove", "limbs", "torso", "head", "skin", "misc"]
     # adding categories to root
@@ -52,8 +55,11 @@ def tree_build():
         for grouping in ffg:
             new_group = Node(parent=child, name=grouping)
             child.children.append(new_group)
-            # parts = features[child][grouping]
-            # new_group.children.extends(parts)
+            parts = features[child.name][grouping]
+            for key, val in parts.items():
+                feature_node = Node(parent=new_group, name=key)
+                feature_node.conditions = val
+                new_group.children.append(feature_node)
 
 
     return root
