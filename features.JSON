@@ -11,7 +11,9 @@
     },
 	"offensive" : {
         "remove" : {},
-        "limbs" : {},
+        "limbs" : {
+            "claw" : {"terrain" : ["soil", "arborous"], "prey" : [""]}
+        },
         "torso" : {},
         "head" : {},
         "misc" : {},

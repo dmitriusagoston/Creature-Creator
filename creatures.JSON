@@ -1,6 +1,6 @@
 {
     "predators" : {
-        "wolf" : {"features" : ["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150},
+        "wolf" : {"features" : ["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150}, "herb" : 0, "carn" : 2,
         "panther":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":200},
         "tiger":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":250},
         "snake":{"features":["scale", "eye", "fang"], "weight":20},
@@ -15,6 +15,6 @@
         "bear":{"features":["claw", "fang", "thick_hide", "fur", "ear", "eye", "nose"], "weight":500}
     },
     "prey" : {
-
+        "pygmy_marmoset" : {"features" : ["eye", "tail", "ear", "thumbs"], "weight" : 5, "herb" : 1, "carn" : 0}
     }
 }
