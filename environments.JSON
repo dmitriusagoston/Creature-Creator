@@ -1,5 +1,5 @@
 {
-    "enviroments": {
+    "environments": {
         "forest" : {
             "temperature" : {
                 "max" : 70,

@@ -1,38 +1,75 @@
 {
 	"defensive" : {
         "remove" : {},
-        "limbs" : {},
-        "torso" : {
-            "attribute" : {"temperature" : 0, "weather" : 0, "terrain" : ["feature"], "flora" : ["plants"], "predator" : ["predator"], "prey" : ["prey"]}
+        "limbs" : {
+            "attribute" : {"temperature" : 0, "weather" : 0, "terrain" : ["feature"], "flora" : ["plants"], "predator" : ["predator"], "prey" : ["prey"]},
+            "shield_arm" : {"predator" : ["claw","fang"], "prey" : ["self_breaking_bones"]}
         },
-        "head" : {},
-        "misc" : {},
-        "skin" : {}
+        "torso" : {
+            "fat" : {"temperature" : [1,-1], "predator" : ["fat"], "prey" : ["fat"]}
+        },
+        "head" : {
+            "blood_shooting_eyes" : {"predator" : ["camo"], "prey" : ["echolocation"]}
+        },
+        "misc" : {
+            "get_slimed_on_idiot" : {"temperature" : [1,0], "predator" : ["eye, nose"]}
+        },
+        "skin" : {
+            "thick_hide" : {"temperature" : [1, 1], "predator" : ["claw", "fang"]}
+        }
     },
 	"offensive" : {
         "remove" : {},
         "limbs" : {
-            "claw" : {"terrain" : ["soil", "arborous"], "prey" : [""]}
+            "claw" : {"terrain" : ["arborous"], "flora" : [3], "prey" : ["thumbs"]}
         },
-        "torso" : {},
-        "head" : {},
-        "misc" : {},
-        "skin" : {}
+        "torso" : {
+            "big_torso" : {"temperature" : [-1,-1]}
+        },
+        "head" : {
+            "horns" : {"predator" : ["bigger_horns"], "prey" : ["shield_arm"]}
+        },
+        "misc" : {
+            "echolocation" : {"predator" : ["echolocation"], "prey" : ["ear"]}
+        },
+        "skin" : {
+            "camo" : {"predator" : ["blood_shooting_eyes"], "prey" : ["eyes"]}
+        }
     },
 	"adaptation" : {
         "remove" : {},
-        "limbs" : {},
-        "torso" : {},
-        "head" : {},
-        "misc" : {},
-        "skin" : {}
+        "limbs" : {
+            "empty" : {}
+        },
+        "torso" : {
+            "empty" : {}
+        },
+        "head" : {
+            "empty" : {}
+        },
+        "misc" : {
+            "empty" : {}
+        },
+        "skin" : {
+            "empty" : {}
+        }
     },
 	"caloric" : {
         "remove" : {},
-        "limbs" : {},
-        "torso" : {},
-        "head" : {},
-        "misc" : {},
-        "skin" : {}
+        "limbs" : {
+            "empty" : {}
+        },
+        "torso" : {
+            "empty" : {}
+        },
+        "head" : {
+            "empty" : {}
+        },
+        "misc" : {
+            "empty" : {}
+        },
+        "skin" : {
+            "empty" : {}
+        }
     }
 }

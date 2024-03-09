@@ -1,20 +1,10 @@
 {
     "predators" : {
-        "wolf" : {"features" : ["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150}, "herb" : 0, "carn" : 2,
-        "panther":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":200},
-        "tiger":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":250},
-        "snake":{"features":["scale", "eye", "fang"], "weight":20},
-        "spider":{"features":["eye", "fang"], "weight":1},
-        "hawk":{"features":["wing", "claw", "beak", "ear", "eye"], "weight":5},
-        "fox":{"features":["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":50},
-        "shark":{"features":["eye", "nose", "fang", "fin", "tail"], "weight":3000},
-        "orca":{"features":["eye", "nose", "fang", "fin", "tail"], "weight":6000},
-        "giant_octopus":{"features":["eye", "beak", "tentacle", "sucker"], "weight":200},
-        "dolphin":{"features":["eye", "nose", "fang", "fin", "tail"], "weight":500},
-        "sealion":{"features":["thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":600},
-        "bear":{"features":["claw", "fang", "thick_hide", "fur", "ear", "eye", "nose"], "weight":500}
+        "wolf" : {"features" : ["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150, "herb" : 0, "carn" : 2},
+        "big_dude" : {"features" : ["camo", "big_torso", "horns", "echolocation", "bigger_horns"], "weight" : 300, "herb" : 0, "carn" : 2}
     },
     "prey" : {
-        "pygmy_marmoset" : {"features" : ["eye", "tail", "ear", "thumbs"], "weight" : 5, "herb" : 1, "carn" : 0}
+        "pygmy_marmoset" : {"features" : ["eye", "tail", "ear", "thumbs"], "weight" : 5, "herb" : 1, "carn" : 0},
+        "little_dude" : {"features" : ["shield_arm", "blood_shooting_eyes", "self_breaking_bones", "spike_ribs", "self_destruciton", "get_slimed_on_idiot", "poop_lungs", "play_dead", "color_changing", "poison", "fat"], "weight" : 1, "herb" : 0, "carn" : 2}
     }
 }
