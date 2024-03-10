@@ -29,7 +29,7 @@ class Node:
 def tree_build():
     # json file data location
     features_filename = 'features.json'
-    biomes_filename = 'enviroments.json'
+    biomes_filename = 'environments.json'
 
     # grab json data
     with open(features_filename) as f:

@@ -1,5 +1,6 @@
 class environment:
-    def __init__(self, temp, weather, terrain, flora, prey, predators):
+    def __init__(self, name, temp, weather, terrain, flora, prey, predators):
+        self.name = name
         self.temp = temp
         self.weather = weather
         self.terrain = terrain
