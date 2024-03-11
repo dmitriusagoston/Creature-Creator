@@ -1,4 +1,6 @@
 import json
+import random
+import numpy as np
 from metrics import metrics
 from creature_tree import tree_build
 from creature import creature
@@ -41,14 +43,47 @@ def load_environments(filename):
                               predators=cur_predators)
     return envs
 
+def generate_successors(creatures):
+    results = []
+
+    [individual.fitness(env, root, pred_objs, prey_objs) for individual in creatures]
+
+    # Elitism
+    keep = 10
+    best = sorted(creatures, key=lambda creature: creature.fitness, reverse=True)
+    best = best[:keep]
+    results.extend(best)
+
+    # Truncate
+    for creature in best[1:]:
+        results.append(generate_children(creature, best[0]))
+    
+    # Roulette Wheel
+    spins = 80
+    for _ in range(spins):
+        selection = random.choices(creatures, [max(0, ind.fitness) for ind in creatures], k=2)
+        results.append(generate_children(selection[0], selection[1]))
+
+    return results
+        
+def generate_children(parent1, parent2):
+    crossover_i = random.randint(0, min(len(parent1.features), len(parent2.features)))
+    child = creature(name=parent1.name, weight=np.mean([parent1.weight, parent2.weight]), features=parent1.features[:crossover_i] + parent2.features[crossover_i:], fitness=0.0)
+    return child.mutate(env, root)
+
 if __name__ == "__main__":
+    global prey_objs, pred_objs, env, root
     static_predators, static_prey = load_creatures('creatures.json')
     envs = load_environments('environments.json')
+    env = envs['forest']
+    root = tree_build()
+    pred_objs = static_predators
+    prey_objs = static_prey
 
     test_dude = static_predators['big_dude']
     m = metrics(creature=test_dude, 
-                env=envs['forest'], 
-                tree=tree_build(), 
+                env=env, 
+                tree=root, 
                 pred_objs=static_predators, 
                 prey_objs=static_prey)
     print(m)
