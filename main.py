@@ -1,4 +1,6 @@
 import json
+from metrics import metrics
+from creature_tree import tree_build
 from creature import creature
 from environment import environment
 
@@ -42,4 +44,12 @@ def load_environments(filename):
 if __name__ == "__main__":
     static_predators, static_prey = load_creatures('creatures.json')
     envs = load_environments('environments.json')
-    print(envs)
+
+    test_dude = static_predators['big_dude']
+    m = metrics(creature=test_dude, 
+                env=envs['forest'], 
+                tree=tree_build(), 
+                pred_objs=static_predators, 
+                prey_objs=static_prey)
+    print(m)
+    

@@ -16,7 +16,7 @@ def get_features_from_root(root, type):
     return features
 
 
-def metrics(creature, env, tree):
+def metrics(creature, env, tree, pred_objs, prey_objs):
     '''
     This function takes in a creature and environment and returns a set of metrics
 
@@ -58,6 +58,11 @@ def metrics(creature, env, tree):
     adaptation_features = get_features_from_root(tree, "adaptation")
     caloric_features = get_features_from_root(tree, "caloric")
 
+    defensive_feature_names = [f.name for f in defensive_features]
+    offensive_feature_names = [f.name for f in offensive_features]
+    adaptation_feature_names = [f.name for f in adaptation_features]
+    caloric_feature_names = [f.name for f in caloric_features]
+
     # Complexity
     complexity = len(creature.features)
 
@@ -83,9 +88,9 @@ def metrics(creature, env, tree):
     # Weather - potentially remove later
     cur_weather = None
     # snow case
-    if env.weather > 5 and env.temp[1] <= 32:
+    if env.weather[1] > 5 and env.temp[1] <= 32:
         cur_weather = "snow"
-    elif env.weather > 5 and env.temp[0] > 32:
+    elif env.weather[1] > 5 and env.temp[0] > 32:
         cur_weather = "rain"
     else:
         cur_weather = "clear"
@@ -93,12 +98,17 @@ def metrics(creature, env, tree):
 
     # Terrain
     for feature in creature.features:
-        terrain += sum(terrain in feature["terrain"] for terrain in env.terrain)
+        cur_f = tree.get_node_by_name(feature)
+        if 'terrain' in cur_f.conditions:
+            terrain += sum(terrain in cur_f.conditions['terrain'] for terrain in env.terrain)
 
     # Flora
     for feature in creature.features:
+        cur_f = tree.get_node_by_name(feature)
         for i in range(1,4):
-            flora += i*sum(flora in feature["flora"]["tier"+str(i)] for flora in env.flora)
+            if 'flora' in cur_f.conditions:
+                flora += i*sum(flora in cur_f.conditions['flora']['tier'+str(i)] for flora in env.flora)
+            # flora += i*sum(flora in feature["flora"]["tier"+str(i)] for flora in env.flora)
         
         # flora += sum(flora in feature["flora"]["tier1"] for flora in env.flora)
         # flora += 2*sum(flora in feature["flora"]["tier2"] for flora in env.flora)
@@ -106,11 +116,16 @@ def metrics(creature, env, tree):
 
     # Predator
     survivability = []
-    countered_features = [f for f in creature.features["predator"]]
+    countered_features = []
+    for f in creature.features:
+        cur_f = tree.get_node_by_name(f)
+        if 'predator' in cur_f.conditions:
+            countered_features.extend(cur_f.conditions['predator'])
     for predator in env.predators:
+        cur_p = pred_objs[predator]
         cur_win = 0.0
         cur_lose = 0.0
-        for feature in [f for f in predator.features if f in offensive_features]:
+        for feature in [f for f in cur_p.features if f in offensive_feature_names]:
             if feature in countered_features:
                 cur_win += 1.0
             else:
@@ -120,11 +135,16 @@ def metrics(creature, env, tree):
 
     # Prey
     success = []
-    countered_features = [f for f in creature.features["prey"]]
+    countered_features = []
+    for f in creature.features:
+        cur_f = tree.get_node_by_name(f)
+        if 'prey' in cur_f.conditions:
+            countered_features.extend(cur_f.conditions['prey'])
     for prey in env.prey:
+        cur_p = prey_objs[prey]
         cur_win = 0.0
         cur_lose = 0.0
-        for feature in [f for f in prey.features if f in defensive_features]:
+        for feature in [f for f in cur_p.features if f in defensive_feature_names]:
             if feature in countered_features:
                 cur_win += 1.0
             else:
@@ -136,16 +156,16 @@ def metrics(creature, env, tree):
     std_prey = np.std(success)
     
     # Defense
-    defense += len([feature for feature in creature.features if feature in defensive_features])
+    defense += len([feature for feature in creature.features if feature in defensive_feature_names])
 
     # Offense
-    offense += len([feature for feature in creature.features if feature in offensive_features])
+    offense += len([feature for feature in creature.features if feature in offensive_feature_names])
 
     # Adaptation
-    adaptation += len([feature for feature in creature.features if feature in adaptation_features])
+    adaptation += len([feature for feature in creature.features if feature in adaptation_feature_names])
 
     # Caloric
-    caloric += len([feature for feature in creature.features if feature in caloric_features])
+    caloric += len([feature for feature in creature.features if feature in caloric_feature_names])
 
 
     return {"complexity": complexity,

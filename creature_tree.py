@@ -22,6 +22,15 @@ class Node:
                 string += child.tree_to_string(horizon, indent + 1)
         return string
 
+    def get_node_by_name(self, name):
+        if self.name == name:
+            return self
+        for child in self.children:
+            result = child.get_node_by_name(name)
+            if result:
+                return result
+        return None
+
     # def add_children(self, childs):
     #     self.children.extend(childs)
 

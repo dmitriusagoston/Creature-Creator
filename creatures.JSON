@@ -1,7 +1,7 @@
 {
     "predators" : {
         "wolf" : {"features" : ["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150, "herb" : 0, "carn" : 2},
-        "big_dude" : {"features" : ["camo", "big_torso", "horns", "echolocation", "bigger_horns"], "weight" : 300, "herb" : 0, "carn" : 2}
+        "big_dude" : {"features" : ["camo", "big_torso", "horns", "echolocation"], "weight" : 300, "herb" : 0, "carn" : 2}
     },
     "prey" : {
         "pygmy_marmoset" : {"features" : ["eye", "tail", "ear", "thumbs"], "weight" : 5, "herb" : 1, "carn" : 0},
