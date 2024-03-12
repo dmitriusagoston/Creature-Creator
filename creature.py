@@ -10,6 +10,9 @@ class creature:
         self.features = features
         self.fitness = fitness
 
+    def __str__(self):
+        return f"Name: {self.name}, Weight: {self.weight}, Temp: {self.temp}, Features: {self.features}, Fitness: {self.fitness}"
+
     def calculate_fitness(self, env, tree, pred_objs, prey_objs):
         measurements = metrics(creature=self, env=env, tree=tree, pred_objs=pred_objs, prey_objs=prey_objs)
 
@@ -32,24 +35,24 @@ class creature:
 
         self.fitness = sum(map(lambda m: coefficients[m] * measurements[m], coefficients))
 
-    def fitness(self, env, tree, pred_objs, prey_objs):
+    def get_fitness(self, env, tree, pred_objs, prey_objs):
         if self.fitness is None:
             return self.calculate_fitness(env, tree, pred_objs, prey_objs)
         return self.fitness
     
     def mutate(self, env, root):
-
-        mutation_rate = 0.1
+        mutation_rate = 0.9
 
         r = random.random()
 
         node = root
         if r <= mutation_rate:
-            while node:
+            while node.children:
                 node = random.choice(node.children)
-                if node.name == "remove":
+                if node.name == "remove" and len(self.features) != 0:
+                    continue
                     self.features.remove(random.choice(self.features))
-                elif node.children.is_empty():
+                elif not node.children:
                     self.features.append(node)
     
 

@@ -98,16 +98,19 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
 
     # Terrain
     for feature in creature.features:
-        cur_f = tree.get_node_by_name(feature)
+        cur_f = tree.get_node_by_name(feature.name)
         if 'terrain' in cur_f.conditions:
             terrain += sum(terrain in cur_f.conditions['terrain'] for terrain in env.terrain)
 
     # Flora
+            
+    # Need to fix!!!!!!
+
     for feature in creature.features:
-        cur_f = tree.get_node_by_name(feature)
+        cur_f = tree.get_node_by_name(feature.name)
         for i in range(1,4):
             if 'flora' in cur_f.conditions:
-                flora += i*sum(flora in cur_f.conditions['flora']['tier'+str(i)] for flora in env.flora)
+                flora += i*sum(flora in cur_f.conditions['flora'] for flora in env.flora)
             # flora += i*sum(flora in feature["flora"]["tier"+str(i)] for flora in env.flora)
         
         # flora += sum(flora in feature["flora"]["tier1"] for flora in env.flora)
@@ -118,7 +121,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     survivability = []
     countered_features = []
     for f in creature.features:
-        cur_f = tree.get_node_by_name(f)
+        cur_f = tree.get_node_by_name(f.name)
         if 'predator' in cur_f.conditions:
             countered_features.extend(cur_f.conditions['predator'])
     for predator in env.predators:
@@ -137,7 +140,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     success = []
     countered_features = []
     for f in creature.features:
-        cur_f = tree.get_node_by_name(f)
+        cur_f = tree.get_node_by_name(f.name)
         if 'prey' in cur_f.conditions:
             countered_features.extend(cur_f.conditions['prey'])
     for prey in env.prey:
