@@ -17,8 +17,8 @@
             },
             "fauna" : {
                 "prey" : {
-                    "tier1" : ["egg", "insect"],
-                    "tier2" : ["rodent", "bird", "reptile"],
+                    "tier1" : ["egg", "insect", "lizard"],
+                    "tier2" : ["rodent", "bird"],
                     "tier3" : ["deer", "sheep", "hog"]
                 },
                 "predator" : ["wolf", "bear", "snake", "fox"]

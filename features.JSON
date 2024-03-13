@@ -43,10 +43,11 @@
 	"adaptation" : {
         "remove" : {},
         "limbs" : {
-            "thumb" : {"flora" : [2], "fauna":[1], "terrain":["arborous"], "multiple" : true}
+            "thumb" : {"flora" : [2], "fauna":[1], "terrain":["arborous"], "exploits":["tail"],"multiple" : true}
         },
         "torso" : {
-            "wings" : {"counter": ["leg"], "exploits":["leg", "ear"], "multiple" : true}
+            "wings" : {"counter": ["leg"], "exploits":["leg", "ear"], "multiple" : true},
+            "tail" : {"multiple":true}
         },
         "head" : {
             "mouth" : {"flora":[1], "fauna":[1], "multiple": true}
