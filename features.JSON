@@ -14,7 +14,7 @@
         },
         "misc" : {
             "carapace" : {"counters" : ["claw","fang", "horn"], "multiple" : false},
-            "quiet" : {"couters" : ["ear"], "exploits":["ear"]}
+            "quiet" : {"couters" : ["ear"], "exploits":["ear"], "multiple" : false}
         },
         "skin" : {
             "thick_hide" : {"temperature" : [1, 1], "counters" : ["claw", "fang"], "multiple" : false},

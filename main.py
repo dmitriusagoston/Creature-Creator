@@ -68,8 +68,33 @@ def generate_successors(creatures):
         
 def generate_children(parent1, parent2):
     crossover_i = random.randint(0, min(len(parent1.features), len(parent2.features)))
-    child = creature(name=parent1.name, weight=np.mean([parent1.weight, parent2.weight]), features=parent1.features[:crossover_i] + parent2.features[crossover_i:], fitness=None)
-    child.mutate(env, root)
+    keys_parent1 = set(parent1.features.keys())
+    keys_parent2 = set(parent2.features.keys())
+    
+    # Select a subset of keys common to both parents
+    common_keys = keys_parent1.intersection(keys_parent2)
+    crossover_keys = random.sample(list(common_keys), k=min(len(common_keys), min(len(keys_parent1), len(keys_parent2))//2))
+
+    child_f = {}
+    
+    # Combine genetic material from both parents
+    for key in keys_parent1.union(keys_parent2):
+        if key in crossover_keys:
+            if key in parent2.features:
+                val = parent2.features[key]
+            else:
+                val = parent1.features[key]
+            child_f[key] = parent2.features.get(key, val)
+        else:
+            if key in parent1.features:
+                val = parent1.features[key]
+            else:
+                val = parent2.features[key]
+            child_f[key] = parent1.features.get(key, val)
+    
+    # child = creature(name=parent1.name, weight=np.mean([parent1.weight, parent2.weight]), features=parent1.features[:crossover_i] + parent2.features[crossover_i:], fitness=None)
+    child = creature(name=parent1.name, weight=np.mean([parent1.weight, parent2.weight]), features=child_f)
+    child.mutate(env, root, rate=0.9)
     return child
 
 if __name__ == "__main__":

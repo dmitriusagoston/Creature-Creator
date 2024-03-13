@@ -15,7 +15,6 @@ def get_features_from_root(root, type):
                 features.extend(ffg.children)
     return features
 
-
 def metrics(creature, env, tree, pred_objs, prey_objs):
     '''
     This function takes in a creature and environment and returns a set of metrics
@@ -66,18 +65,23 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     # Temp - rework
     min_temp = creature.temp[0]
     max_temp = creature.temp[1]
-    '''
-    add this later to mutate function, make it more complex to edit both max and min temp depending on the feature
+    
+    # add this later to mutate function, make it more complex to edit both max and min temp depending on the feature
 
-    min_temp_mod = sum([temp for temp in creature.features["temp"] if creature.features["temp"] < 0])
-    max_temp_mod = sum([temp for temp in creature.features["temp"] if creature.features["temp"] > 0])
+    min_temp_mod = 0
+    max_temp_mod = 0
+    for feature in creature.features:
+        cur_f = tree.get_node_by_name(feature.name)
+        if "temperature" in cur_f.conditions:
+            min_temp_mod += cur_f.conditions["temperature"][0]
+            max_temp_mod += cur_f.conditions["temperature"][1]
     min_temp += min_temp_mod
     max_temp += max_temp_mod
-    '''
-    underheat = max(0, creature.temp[0] - env.temp[0])**2
-    overheat = max(0, env.temp[1] - creature.temp[1])**2
-    temp -= underheat #/ creature.cold_resistance - ask gillian about this (bio major)
-    temp -= overheat #/ creature.heat_resitance
+    
+    underheat = max(0, min_temp - env.temp[0])**2
+    overheat = max(0, env.temp[1] - max_temp)**2
+    temp -= underheat
+    temp -= overheat
 
     # Terrain (leg bias)
     for feature in creature.features:
