@@ -24,30 +24,6 @@
                 "predator" : ["wolf", "bear", "snake", "fox"]
             }
         },
-        "ocean" : {
-            "temperature" : {
-                "max" : 60,
-                "min" : 30
-            },
-            "weather" : {
-                "max" : 10,
-                "min" : 5
-            },
-            "terrain" : ["water", "rocks", "sand"],
-            "flora" : {
-                "tier1" : ["algae"],
-                "tier2" : ["kelp"],
-                "tier3" : ["seaweed"]
-            },
-            "fauna" : {
-                "prey" : {
-                    "tier1" : ["plankton"],
-                    "tier2" : ["fish"],
-                    "tier3" : ["big_fish"]
-                },
-                "predator" : ["shark", "orca", "giant_octopus", "dolphin", "sealion"]
-            }
-        },
         "desert" : {
             "temperature" : {
                 "max" : 100,

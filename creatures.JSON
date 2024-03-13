@@ -1,10 +1,16 @@
 {
     "predators" : {
-        "wolf" : {"features" : ["claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150, "herb" : 0, "carn" : 2},
-        "big_dude" : {"features" : ["camo", "big_torso", "horns", "echolocation"], "weight" : 300, "herb" : 0, "carn" : 2}
+        "wolf" : {"features" : ["mouth", "leg", "claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight" : 150, "herb" : 0, "carn" : 2},
+        "panther":{"features":["mouth","leg","claw", "thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":200},
+        "tiger":{"features":["mouth","claw", "leg","thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":250},
+        "snake":{"features":["mouth","scale", "eye", "fang"], "weight":20},
+        "spider":{"features":["mouth","eye","leg", "fang"], "weight":1},
+        "hawk":{"features":["mouth","wing", "leg","claw", "beak", "ear", "eye"], "weight":5},
+        "fox":{"features":["mouth","claw", "leg","thick_hide", "fur", "fang", "tail", "eye", "nose", "ear"], "weight":50},
+        "bear":{"features":["mouth","claw", "leg", "fang", "thick_hide", "fur", "ear", "eye", "nose"], "weight":500}
     },
     "prey" : {
-        "pygmy_marmoset" : {"features" : ["eye", "tail", "ear", "thumbs"], "weight" : 5, "herb" : 1, "carn" : 0},
-        "little_dude" : {"features" : ["shield_arm", "blood_shooting_eyes", "self_breaking_bones", "spike_ribs", "self_destruciton", "get_slimed_on_idiot", "poop_lungs", "play_dead", "color_changing", "poison", "fat"], "weight" : 1, "herb" : 0, "carn" : 2}
-    }
+        "pygmy_marmoset" : {"features" : ["eye", "leg", "arm", "tail", "ear", "thumbs"], "weight" : 5, "herb" : 1, "carn" : 0}
+        }
+   
 }
