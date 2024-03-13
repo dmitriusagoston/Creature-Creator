@@ -31,10 +31,6 @@ class Node:
                 return result
         return None
 
-    # def add_children(self, childs):
-    #     self.children.extend(childs)
-
-
 def tree_build():
     # json file data location
     features_filename = 'features.json'
@@ -50,7 +46,7 @@ def tree_build():
     # start of tree
     root = Node(name="root")
     # sub categories for root node
-    feature_groupings = ["defensive", "offensive", "adaptation", "caloric"]
+    feature_groupings = ["defensive", "offensive", "adaptation"]
     # feature function groupings
     ffg = ["remove", "limbs", "torso", "head", "skin", "misc"]
     # adding categories to root

@@ -33,8 +33,6 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     weight = 0
     # Temp - creature temperature viability
     temp = 0
-    # Weather - creature weather viability
-    weather = 0
     # Terrain - creature terrain viability
     terrain = 0
     # Flora - creature ability to consume flora
@@ -49,19 +47,15 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     offense = 0
     # Adaptation - creature amount of adaptation features
     adaptation = 0
-    # Caloric - creature caloric features
-    caloric = 0
 
     # Get features from tree
     defensive_features = get_features_from_root(tree, "defensive")
     offensive_features = get_features_from_root(tree, "offensive")
     adaptation_features = get_features_from_root(tree, "adaptation")
-    caloric_features = get_features_from_root(tree, "caloric")
 
     defensive_feature_names = [f.name for f in defensive_features]
     offensive_feature_names = [f.name for f in offensive_features]
     adaptation_feature_names = [f.name for f in adaptation_features]
-    caloric_feature_names = [f.name for f in caloric_features]
 
     # Complexity
     complexity = len(creature.features)
@@ -69,7 +63,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     # Weight
     weight = creature.weight
 
-    # Temp
+    # Temp - rework
     min_temp = creature.temp[0]
     max_temp = creature.temp[1]
     '''
@@ -85,18 +79,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     temp -= underheat #/ creature.cold_resistance - ask gillian about this (bio major)
     temp -= overheat #/ creature.heat_resitance
 
-    # Weather - potentially remove later
-    cur_weather = None
-    # snow case
-    if env.weather[1] > 5 and env.temp[1] <= 32:
-        cur_weather = "snow"
-    elif env.weather[1] > 5 and env.temp[0] > 32:
-        cur_weather = "rain"
-    else:
-        cur_weather = "clear"
-    weather = 0 
-
-    # Terrain
+    # Terrain (leg bias)
     for feature in creature.features:
         cur_f = tree.get_node_by_name(feature.name)
         if 'terrain' in cur_f.conditions:
@@ -122,8 +105,8 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     countered_features = []
     for f in creature.features:
         cur_f = tree.get_node_by_name(f.name)
-        if 'predator' in cur_f.conditions:
-            countered_features.extend(cur_f.conditions['predator'])
+        if 'counters' in cur_f.conditions:
+            countered_features.extend(cur_f.conditions['counters'])
     for predator in env.predators:
         cur_p = pred_objs[predator]
         cur_win = 0.0
@@ -141,8 +124,8 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     countered_features = []
     for f in creature.features:
         cur_f = tree.get_node_by_name(f.name)
-        if 'prey' in cur_f.conditions:
-            countered_features.extend(cur_f.conditions['prey'])
+        if 'exploits' in cur_f.conditions:
+            countered_features.extend(cur_f.conditions['exploits'])
     for prey in env.prey:
         cur_p = prey_objs[prey]
         cur_win = 0.0
@@ -167,14 +150,10 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     # Adaptation
     adaptation += len([feature for feature in creature.features if feature in adaptation_feature_names])
 
-    # Caloric
-    caloric += len([feature for feature in creature.features if feature in caloric_feature_names])
-
 
     return {"complexity": complexity,
             "weight": weight,
             "temp": temp,
-            "weather": weather,
             "terrain": terrain,
             "flora": flora,
             "predator": predator,
@@ -184,5 +163,4 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
             "defense": defense,
             "offense": offense,
             "adaptation": adaptation,
-            "caloric": caloric
             }

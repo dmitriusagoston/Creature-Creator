@@ -52,14 +52,14 @@ def generate_successors(creatures):
     keep = 10
     best = sorted(creatures, key=lambda creature: creature.fitness, reverse=True)
     best = best[:keep]
-    # results.extend(best)
+    results.extend(best)
 
     # Truncate
     for creature in best[1:]:
         results.append(generate_children(creature, best[0]))
     
     # Roulette Wheel
-    spins = 90
+    spins = 80
     for _ in range(spins):
         selection = random.choices(creatures, [max(0.01, ind.fitness) for ind in creatures], k=2)
         results.append(generate_children(selection[0], selection[1]))

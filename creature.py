@@ -50,7 +50,6 @@ class creature:
             while node.children:
                 node = random.choice(node.children)
                 if node.name == "remove" and len(self.features) != 0:
-                    continue
                     self.features.remove(random.choice(self.features))
                 elif not node.children:
                     self.features.append(node)
