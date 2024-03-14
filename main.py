@@ -1,6 +1,7 @@
 import json
 import random
 import numpy as np
+import sys
 from metrics import metrics
 from creature_tree import tree_build
 from creature import creature
@@ -27,12 +28,14 @@ def load_environments(filename):
         cur_e = environments['environments'][e]
         cur_temp = [cur_e['temperature']['min'], cur_e['temperature']['max']]
         cur_weather = [cur_e['weather']['min'], cur_e['weather']['max']]
-        cur_flora = []
+        cur_flora = {}
         for i in range(1,4):
-            cur_flora.extend(cur_e['flora']['tier'+str(i)])
-        cur_prey = []
+            for f in cur_e['flora']['tier'+str(i)]:
+                cur_flora[f] = i
+        cur_prey = {}
         for i in range(1,4):
-            cur_prey.extend(cur_e['fauna']['prey']['tier'+str(i)])
+            for p in cur_e['fauna']['prey']['tier'+str(i)]:
+                cur_prey[p] = i
         cur_predators = cur_e['fauna']['predator']
         envs[e] = environment(name=e, 
                               temp=cur_temp, 
@@ -94,7 +97,7 @@ def generate_children(parent1, parent2):
     
     # child = creature(name=parent1.name, weight=np.mean([parent1.weight, parent2.weight]), features=parent1.features[:crossover_i] + parent2.features[crossover_i:], fitness=None)
     child = creature(name=parent1.name, weight=np.mean([parent1.weight, parent2.weight]), features=child_f)
-    child.mutate(env, root, rate=0.9)
+    child.mutate(env, root, pred_objs, prey_objs, rate=0.9)
     return child
 
 if __name__ == "__main__":
@@ -109,10 +112,12 @@ if __name__ == "__main__":
     population = [creature() for _ in range(100)]
     generation = 0
     try:
-        while generation < 20:
+        while generation < 500:
             generation += 1
             next_population = generate_successors(population)
             population = next_population
+            sys.stdout.write('\rCurrent Generation: {}'.format(generation))
+            sys.stdout.flush()
     except KeyboardInterrupt:
         pass
 
@@ -120,6 +125,7 @@ if __name__ == "__main__":
     best = sorted(population, key=lambda creature: creature.fitness, reverse=True)[0]
     print(best)
     print(best.fitness)
+    print(best.scores)
 
 
     

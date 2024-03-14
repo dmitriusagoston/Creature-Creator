@@ -29,7 +29,8 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     # Complexity - number of creature parts
     complexity = 0
     # Weight - creature weight
-    weight = 0
+    heavy = 0
+    light = 0
     # Temp - creature temperature viability
     temp = 0
     # Terrain - creature terrain viability
@@ -39,7 +40,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     # Predator - creature ability to survive predetors
     predator = 0
     # Prey - creature ability to hunt prey  
-    prey = 0
+    prey_v = 0
     # Defense - creature amount of defense features
     defense = 0
     # Offense - creature amount of offense features
@@ -57,10 +58,13 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     adaptation_feature_names = [f.name for f in adaptation_features]
 
     # Complexity
-    complexity = len(creature.features)
+    complexity = sum(creature.features.values())
+
+    simplicity = 40 - complexity // 2
 
     # Weight
-    weight = creature.weight
+    heavy = creature.weight // 10
+    light = 80 - (creature.weight // 10)
 
     # Temp - rework
     min_temp = creature.temp[0]
@@ -75,34 +79,32 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
         if "temperature" in cur_f.conditions:
             min_temp_mod += cur_f.conditions["temperature"][0]
             max_temp_mod += cur_f.conditions["temperature"][1]
-    min_temp += min_temp_mod
-    max_temp += max_temp_mod
+    min_temp += min_temp_mod * 15
+    max_temp += max_temp_mod * 15
     
-    underheat = max(0, min_temp - env.temp[0])**2
-    overheat = max(0, env.temp[1] - max_temp)**2
-    temp -= underheat
-    temp -= overheat
+    underheat = max(0, min_temp - env.temp[0])
+    overheat = max(0, env.temp[1] - max_temp)
+    temp -= underheat / 10
+    temp -= overheat / 10
 
-    # Terrain (leg bias)
+    # Terrain
     for feature in creature.features:
         cur_f = tree.get_node_by_name(feature.name)
         if 'terrain' in cur_f.conditions:
             terrain += sum(terrain in cur_f.conditions['terrain'] for terrain in env.terrain)
 
     # Flora
-            
-    # Need to fix!!!!!!
-
-    for feature in creature.features:
+    tiers_f = [0, 0, 0]
+    total_f = [0, 0, 0]
+    for plant, tier in env.flora.items():
+        total_f[tier - 1] += 1
+    for feature, val in creature.features.items():
         cur_f = tree.get_node_by_name(feature.name)
-        for i in range(1,4):
-            if 'flora' in cur_f.conditions:
-                flora += i*sum(flora in cur_f.conditions['flora'] for flora in env.flora)
-            # flora += i*sum(flora in feature["flora"]["tier"+str(i)] for flora in env.flora)
-        
-        # flora += sum(flora in feature["flora"]["tier1"] for flora in env.flora)
-        # flora += 2*sum(flora in feature["flora"]["tier2"] for flora in env.flora)
-        # flora += 3*sum(flora in feature["flora"]["tier3"] for flora in env.flora)
+        if 'flora' in cur_f.conditions:
+            tier = cur_f.conditions['flora'][0] - 1
+            tiers_f[tier] += val
+    for tier in range(3):
+        flora += min(total_f[tier], tiers_f[tier]) * (tier + 1)
 
     # Predator
     survivability = []
@@ -124,7 +126,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     predator = sum(survivability) / len(survivability)
 
     # Prey
-    success = []
+    success = {}
     countered_features = []
     for f in creature.features:
         cur_f = tree.get_node_by_name(f.name)
@@ -139,32 +141,68 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
                 cur_win += 1.0
             else:
                 cur_lose += 1.0
-        success.append(cur_win / (cur_win + cur_lose))
+        success[prey] = cur_win / (cur_win + cur_lose)
+    for prey, val in env.prey.items():
+        prey_v += val * success[prey]
+        
+    max_prey = max(success.values())
+    avg_prey = np.mean(list(success.values()))
+    std_prey = np.std(list(success.values()))
     
-    max_prey = max(success)
-    avg_prey = np.mean(success)
-    std_prey = np.std(success)
+    for feature, val in creature.features.items():
+        if feature.name in defensive_feature_names:
+            defense += val
+        elif feature.name in offensive_feature_names:
+            offense += val
+        elif feature.name in adaptation_feature_names:
+            adaptation += val
+
+
+    # Realistic
+    realistic = 0
+    even = ["arm", "leg", "thumb", "antler", "eye", "wings"]
+    single = ["mouth", "horns", "spine", "tail"]
+    for feature, val in creature.features.items():
+        cur = feature.name
+        if cur in even and val % 2 == 0:
+            realistic += 5
+            # 4 case
+            if cur in ["leg", "wings"]:
+                # insect case
+                if creature.weight < 1:
+                    if cur == "wings" and val > 4:
+                        realistic -= val - 4
+                    else:
+                        realistic += 5
+                    if cur == "leg":
+                        realistic += val
+                else:
+                    realistic -= max(0, val - 4)
+            # 2 case
+            else:
+                realistic -= max(0, val - 2)
+            realistic -= max(0, val - 4)
+        elif cur in single:
+            if val == 1:
+                realistic += 5
+            else:
+                realistic -= val - 1
     
-    # Defense
-    defense += len([feature for feature in creature.features if feature in defensive_feature_names])
-
-    # Offense
-    offense += len([feature for feature in creature.features if feature in offensive_feature_names])
-
-    # Adaptation
-    adaptation += len([feature for feature in creature.features if feature in adaptation_feature_names])
-
 
     return {"complexity": complexity,
-            "weight": weight,
+            "simplicity": simplicity,
+            "heavy": heavy,
+            "light": light,
             "temp": temp,
             "terrain": terrain,
             "flora": flora,
             "predator": predator,
+            "prey": prey_v,
             "max_prey": max_prey,
             "avg_prey": avg_prey,
             "std_prey": std_prey,
             "defense": defense,
             "offense": offense,
             "adaptation": adaptation,
+            "realistic": realistic
             }
