@@ -60,11 +60,13 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
     # Complexity
     complexity = sum(creature.features.values())
 
-    simplicity = 40 - complexity // 2
+    simplicity = 40 - len(creature.features) // 2
+
+    less = 40 - complexity // 2
 
     # Weight
     heavy = creature.weight // 10
-    light = 80 - (creature.weight // 10)
+    light = 16 - (creature.weight // 10)
 
     # Temp - rework
     min_temp = creature.temp[0]
@@ -92,6 +94,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
         cur_f = tree.get_node_by_name(feature.name)
         if 'terrain' in cur_f.conditions:
             terrain += sum(terrain in cur_f.conditions['terrain'] for terrain in env.terrain)
+            terrain -= sum(terrain not in cur_f.conditions['terrain'] for terrain in env.terrain)
 
     # Flora
     tiers_f = [0, 0, 0]
@@ -160,7 +163,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
 
     # Realistic
     realistic = 0
-    even = ["arm", "leg", "thumb", "antler", "eye", "wings"]
+    even = ["arm", "leg", "thumb", "antler", "eye", "wings", "ear"]
     single = ["mouth", "horns", "spine", "tail"]
     for feature, val in creature.features.items():
         cur = feature.name
@@ -178,10 +181,20 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
                         realistic += val
                 else:
                     realistic -= max(0, val - 4)
+                    if cur == "wings" and val >= 4:
+                        realistic -= 5
+                    # centaur case
+                    arm = tree.get_node_by_name("arm")
+                    if arm in creature.features:
+                        if cur == "leg" and val == 4 and creature.features[arm] >= 2:
+                            realistic -= 5
+                        elif cur == "leg" and val == 4 and creature.features[arm] < 2:
+                            realistic += 5
+                    if cur == "wings" and val == 2:
+                        realistic += 5
             # 2 case
             else:
                 realistic -= max(0, val - 2)
-            realistic -= max(0, val - 4)
         elif cur in single:
             if val == 1:
                 realistic += 5
@@ -191,6 +204,7 @@ def metrics(creature, env, tree, pred_objs, prey_objs):
 
     return {"complexity": complexity,
             "simplicity": simplicity,
+            "less": less,
             "heavy": heavy,
             "light": light,
             "temp": temp,

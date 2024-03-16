@@ -14,16 +14,32 @@ class creature:
     def __str__(self):
         return f"Name: {self.name}, Weight: {self.weight}, Temp: {self.temp}, Features: {self.features}, Fitness: {self.fitness}"
 
-    def calculate_fitness(self, env, tree, pred_objs, prey_objs):
+    def calculate_fitness(self, env, tree, pred_objs, prey_objs, heavyness, complexness, realness):
         measurements = metrics(creature=self, env=env, tree=tree, pred_objs=pred_objs, prey_objs=prey_objs)
+        heavy, light = 0, 0
+        if heavyness > 5:
+            heavy = float(heavyness)
+            light = 0.0
+        else:
+            light = float(heavyness + 5)
+            heavy = 0.0
+
+        simple, complex = 0, 0
+        if complexness > 5:
+            complex = float(complexness)
+            simple = 0.0
+        else:
+            simple = float(complexness + 5)
+            complex = 0.0
 
         coefficients = dict(
-            complexity=0.15,
-            simplicity=18.0,
-            heavy=5.0,
-            light=1.0,
+            complexity=complex,
+            simplicity=simple,
+            less=13.0,
+            heavy=heavy,
+            light=light,
             temp=2.0,
-            terrain=1.0,
+            terrain=3.0,
             flora=1.0,
             predator=1.0,
             prey=1.0,
@@ -33,7 +49,7 @@ class creature:
             defense=1.0,
             offense=1.0,
             adaptation=0.5,
-            realistic=6.0
+            realistic=float(realness)
         )
         self.scores = measurements
 
@@ -58,15 +74,15 @@ class creature:
         normalized_weights = {key: (value - min_val) / range_val for key, value in weights.items()}
         return normalized_weights
 
-    def get_fitness(self, env, tree, pred_objs, prey_objs):
+    def get_fitness(self, env, tree, pred_objs, prey_objs, heavyness, complexness, realness):
         if self.fitness is None:
-            return self.calculate_fitness(env, tree, pred_objs, prey_objs)
+            return self.calculate_fitness(env, tree, pred_objs, prey_objs, heavyness, complexness, realness)
         return self.fitness
     
 
     # add random probability weighted based on creature fitnesses (maybe add weights to creatures)
 
-    def mutate(self, env, root, pred_objs, prey_objs, rate=0.9):
+    def mutate(self, env, root, pred_objs, prey_objs, heavyness, complexness, realness, rate=0.9):
         mutation_rate = rate
 
         r = random.random()
@@ -75,7 +91,7 @@ class creature:
             if random.random() < 0.1:
                 self.weight += self.weight * random.uniform(-0.5, 0.12)
                 return
-            self.get_fitness(env, root, pred_objs, prey_objs)
+            self.get_fitness(env, root, pred_objs, prey_objs, heavyness, complexness, realness)
             weights = [self.scores["defense"], self.scores["offense"], self.scores["adaptation"]]
             total = sum(weights)
             if total == 0:

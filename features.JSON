@@ -60,7 +60,7 @@
         },
         "head" : {
             "mouth" : {"flora":[0], "fauna":[0], "multiple": true},
-            "eye" : {"terrain":["arborous", "rivers", "rocks", "soil", "sand"], "counters" :[""], "exploits":[""], "multiple":false},
+            "eye" : {"terrain":["arborous", "rivers", "rocks", "soil", "sand"], "counters" :[""], "exploits":[""], "multiple":true},
             "nose":{"terrain" : "soil", "fauna":[2], "flora":[1], "multiple":true},
             "ear":{"counters":["mouth"], "exploits":["eye", "leg"], "multiple": true},
             "good_eye_sight" : {"counters":["camo"], "multiple":false},
