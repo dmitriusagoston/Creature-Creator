@@ -18,7 +18,7 @@ class creature:
         measurements = metrics(creature=self, env=env, tree=tree, pred_objs=pred_objs, prey_objs=prey_objs)
 
         coefficients = dict(
-            complexity=2.0,
+            complexity=1.0,
             simplicity=1.0,
             heavy=1.0,
             light=1.0,
@@ -33,7 +33,7 @@ class creature:
             defense=1.0,
             offense=1.0,
             adaptation=1.0,
-            realistic=3.0
+            realistic=1.0
         )
         self.scores = measurements
 

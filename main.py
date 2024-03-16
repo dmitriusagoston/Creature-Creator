@@ -102,8 +102,8 @@ def generate_children(parent1, parent2):
 
 if __name__ == "__main__":
     global prey_objs, pred_objs, env, root
-    static_predators, static_prey = load_creatures('creatures.json')
-    envs = load_environments('environments.json')
+    static_predators, static_prey = load_creatures('creatures.JSON')
+    envs = load_environments('environments.JSON')
     env = envs['desert']
     root = tree_build()
     pred_objs = static_predators

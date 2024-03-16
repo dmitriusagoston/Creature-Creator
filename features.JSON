@@ -6,11 +6,12 @@
             "leg" : {"terrain" : ["arborous", "soil", "shrubbery", "rocks", "rivers", "hills"], "counters" : ["leg"], "multiple" : true}
         },
         "torso" : {
-            "fat" : {"temperature" : [1,-1], "counters" : ["fang", "claw"], "multiple" : false},
-            "spine" : {"counters" : ["fang", "thumb"], "multiple" : true}
+            "fat" : {"temperature" : [1,-1], "counters" : ["fang", "claw", "hammer_tail"], "multiple" : false},
+            "thick_bones" : {"counters":["fat", "horn"], "multiple":false}
         },
         "head" : {
-            "antler" : {"counters" : ["horn"], "exploits" : ["eye"], "multiple" : true}
+            "antler" : {"counters" : ["horn"], "exploits" : ["eye"], "multiple" : true},
+            "thick_skull" :{"counters":["fang", "claw"],"multiple":false}
         },
         "misc" : {
             "carapace" : {"counters" : ["claw","fang", "horn"], "multiple" : false},
@@ -25,30 +26,34 @@
 	"offensive" : {
         "remove" : {},
         "limbs" : {
-            "claw" : {"terrain" : ["arborous"], "flora" : [3], "fauna": [2], "exploits" : ["thumbs", "thick_hide"], "multiple" : true},
+            "claw" : {"terrain" : ["arborous"], "fauna": [2], "exploits" : ["thumbs", "thick_hide"], "multiple" : true},
             "long_arm" :{"terrain":["arborous", "rivers"], "flora":[2], "multiple":true}
         },
         "torso" : {
-            "spike" : {"counters":["fang"], "exploits" : ["fat"], "multiple" : true}
+            "spike" : {"counters":["fang"], "exploits" : ["fat"], "multiple" : true},
+            "exoskeleton" : {"counters":[], "multiple":false}
         },
         "head" : {
-            "horns" : {"counters" : ["bigger_horns"], "exploits" : ["shield_arm"], "multiple" : true},
+            "horn" : {"counters" : ["fat"], "exploits" : ["passive", "fur"], "multiple" : true},
             "fang" : {"fauna" : [3], "counters" : ["fat"], "exploits" : ["thumb", "eye", "ear"], "multiple" : true}
         },
         "misc" : {
-            "echolocation" : {"counters" : ["echolocation"], "exploits" : ["ear"], "multiple" : false}
+            "echolocation" : {"counters" : ["echolocation"], "exploits" : ["ear"], "multiple" : false},
+            "hammer_tail" : {"counters" : ["tail", "spine"], "exploits":["carapace", "horn", "thick_bones"], "multiple":true}
         },
         "skin" : {
-            "poison_skin" : {"counters" : ["mouth"], "multiple":false}
+            "poison_skin" : {"counters" : ["mouth"], "multiple":false},
+            "quill" : {"counters" : ["fang", "thumb"], "multiple" : true}
         }
     },
 	"adaptation" : {
         "remove" : {},
         "limbs" : {
-            "thumb" : {"flora" : [2], "fauna":[1], "terrain":["arborous"], "exploits":["tail"],"multiple" : true}
+            "thumb" : {"flora" : [2], "fauna":[1], "terrain":["arborous"], "exploits":["tail"],"multiple" : true},
+            "digging_claw" : {"flora":[3], "terrain":["soil", "sand", "hills"], "multiple":true}
         },
         "torso" : {
-            "wings" : {"counter": ["leg"], "exploits":["leg", "ear"], "multiple" : true},
+            "wing" : {"counter": ["leg"], "exploits":["leg", "ear"], "multiple" : true},
             "tail" : {"terrain":["rivers", "sand"], "multiple":true},
             "extra_torso_segment" : {"terrain":["sand", "soil"], "multiple":true}
         },
@@ -61,7 +66,9 @@
         },
         "misc" : {
             "mucus" : {"temperature" : [0,1], "counters" : ["fang", "nose"], "multiple" : false},
-            "nocturnal" :{"temperature":[1,0], "multiple":false}
+            "nocturnal" :{"temperature":[1,0], "multiple":false},
+            "vicious":{"counters":["passive"], "exploits":["passive", "fat", "thumb", "wing"], "multiple":false},
+            "passive":{"counters":[], "exploits":["passive"], "flora":[2], "multiple":false}
         },
         "skin" : {
             "camo" : {"terrain":["shrubbery", "arborous", "rocks"], "counters" : ["eye"], "exploits" : ["eye"], "multiple" : false},
