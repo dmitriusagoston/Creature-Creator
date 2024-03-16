@@ -13,13 +13,14 @@
         "pygmy_marmoset" : {"features" : ["eye", "leg", "arm", "tail", "ear", "thumbs"], "weight" : 5, "herb" : 1, "carn" : 0},
         "egg":{"features":["carapace", "fat"], "weight": 1, "herb":0, "carn":0},
         "insect":{"features":["leg", "mouth"], "weight":1, "herb": 1, "carn": 1},
-        "lizard":{"features":["leg", "tail", "mouth"], "weight":1, "herb": 0, "carn": 1},
-        "rodent":{"features":["leg", "tail", "mouth"], "weight":5, "herb": 1, "carn": 1},
+        "lizard":{"features":["leg", "tail", "mouth", "eye", "nose", "ear"], "weight":1, "herb": 0, "carn": 1},
+        "rodent":{"features":["leg", "tail", "mouth", "eye", "nose", "ear"], "weight":5, "herb": 1, "carn": 1},
         "bird":{"features":["leg", "mouth"], "weight":10, "herb": 1, "carn": 1},
-        "deer":{"features":["leg", "mouth", "hoof"], "weight":100, "herb": 3, "carn": 0},
-        "sheep":{"features":["wool", "leg", "mouth", "hoof"], "weight":100, "herb": 3, "carn": 0},
-        "hog":{"features":["thick_hide", "leg", "mouth", "hoof"], "weight":150, "herb": 3, "carn": 0},
-        "cow":{"features":["thick_hide", "leg", "mouth", "hoof"], "weight":200, "herb": 3, "carn": 0}
+        "deer":{"features":["leg", "mouth", "hoof", "eye", "nose", "ear"], "weight":100, "herb": 3, "carn": 0},
+        "sheep":{"features":["wool", "leg", "mouth", "hoof", "eye", "nose", "ear"], "weight":100, "herb": 3, "carn": 0},
+        "hog":{"features":["thick_hide", "leg", "mouth", "hoof", "eye", "nose", "ear"], "weight":150, "herb": 3, "carn": 0},
+        "cow":{"features":["thick_hide", "leg", "mouth", "hoof", "eye", "nose", "ear"], "weight":200, "herb": 3, "carn": 0},
+        "goat":{"features":["wool", "leg", "mouth", "hoof", "horns", "eye", "nose", "ear"], "weight":100, "herb": 3, "carn": 0}
         }
    
 }
