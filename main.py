@@ -104,7 +104,7 @@ if __name__ == "__main__":
     global prey_objs, pred_objs, env, root
     static_predators, static_prey = load_creatures('creatures.json')
     envs = load_environments('environments.json')
-    env = envs['forest']
+    env = envs['desert']
     root = tree_build()
     pred_objs = static_predators
     prey_objs = static_prey
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     population = [creature() for _ in range(100)]
     generation = 0
     try:
-        while generation < 500:
+        while generation < 300:
             generation += 1
             next_population = generate_successors(population)
             population = next_population
