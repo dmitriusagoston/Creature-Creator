@@ -19,27 +19,27 @@ class creature:
         heavy, light = 0, 0
         if heavyness > 5:
             heavy = float(heavyness)
-            light = 0.0
+            light = float(10 - heavyness)
         else:
-            light = float(heavyness + 5)
-            heavy = 0.0
+            light = float(10 - heavyness)
+            heavy = float(heavyness)
 
         simple, complex = 0, 0
         if complexness > 5:
             complex = float(complexness)
-            simple = 0.0
+            simple = float(10 - complexness)
         else:
-            simple = float(complexness + 5)
-            complex = 0.0
+            simple = float(10 - complexness)
+            complex = float(complexness)
 
         coefficients = dict(
             complexity=complex,
             simplicity=simple,
-            less=13.0,
-            heavy=heavy,
-            light=light,
+            less=7.0,
+            heavy=heavy + 2,
+            light=light + 2,
             temp=2.0,
-            terrain=3.0,
+            terrain=2.0,
             flora=1.0,
             predator=1.0,
             prey=1.0,

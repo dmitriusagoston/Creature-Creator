@@ -121,6 +121,7 @@ if __name__ == "__main__":
     pred_objs = static_predators
     prey_objs = static_prey
 
+    print("Keep in mind the larger scores will affect the extremity of the creature's other factors\n")
     heavyness = input("How heavy should the creature be? (1-10): ")
     while not heavyness.isdigit() or int(heavyness) < 1 or int(heavyness) > 10:
         print("Invalid input\n")
