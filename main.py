@@ -104,7 +104,7 @@ if __name__ == "__main__":
     global prey_objs, pred_objs, env, root
     static_predators, static_prey = load_creatures('creatures.JSON')
     envs = load_environments('environments.JSON')
-    env = envs['desert']
+    env = envs['forest']
     root = tree_build()
     pred_objs = static_predators
     prey_objs = static_prey

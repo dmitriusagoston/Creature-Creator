@@ -71,6 +71,30 @@
                 },
                 "predator" : ["panther", "tiger", "snake", "spider"]
             }
+        },
+        "tundra" : {
+            "temperature" : {
+                "max" : 40,
+                "min" : 0
+            },
+            "weather" : {
+                "max" : 9,
+                "min" : 5
+            },
+            "terrain" : ["arborous", "rocks", "soil", "shrubbery", "snow", "ice"],
+            "flora" : {
+                "tier1" : ["berry"],
+                "tier2" : ["leaf"],
+                "tier3" : ["root"]
+            },
+            "fauna" : {
+                "prey" : {
+                    "tier1" : ["egg"],
+                    "tier2" : ["bird"],
+                    "tier3" : ["hog", "sheep", "goat"]
+                },
+                "predator" : ["wolf", "tiger", "hawk", "bear"]
+            }
         }
     }
 }
